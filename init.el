@@ -1,14 +1,24 @@
+;; No splash screen
+(setq inhibit-startup-message t)
+(setq make-backup-files nil)
+(setq auto-save-default nil)
+(setq-default indent-tabs-mode nil)
+(delete-selection-mode t)
+
+;; less typing
+(fset 'yes-or-no-p 'y-or-n-p)
+
 (require 'package)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 ;; Initialize packages
 (package-initialize)
 
-;; No splash screen
-(setq inhibit-startup-message t)
-
 ;; Enable projectile globally
 (projectile-global-mode)
+
+;; pair braces automatically {} () []
+(autopair-global-mode)
 
 ;; Custom colors
 (set-background-color "gray15")
@@ -38,11 +48,33 @@
 ;; Enable auto completion
 (ac-config-default)
 
-;; clean up whitespace before save
-(add-hook 'before-save-hook 'whitespace-cleanup)
-
 ;; indent agressively
 (global-aggressive-indent-mode 1)
+(add-to-list 'aggressive-indent-excluded-modes '(haml-mode python-mode))
+
+(defun cleanup-buffer-safe ()
+  "Perform a bunch of safe operations on the whitespace content of a buffer.
+Does not indent buffer, because it is used for a before-save-hook, and that
+might be bad."
+  (interactive)
+  (untabify (point-min) (point-max))
+  (delete-trailing-whitespace)
+  (set-buffer-file-coding-system 'utf-8))
+
+;; Cleanup whitepsace before buffer save
+(add-hook 'before-save-hook 'cleanup-buffer-safe)
+
+;; Custom keybinds
+(global-set-key (kbd "M-j") (lambda () (interactive) (join-line -1))) ; Join line below
+
+(defun cleanup-buffer ()
+  "Perform a bunch of operations on the whitespace content of a buffer.
+Including indent-buffer, which should not be called automatically on save."
+  (interactive)
+  (cleanup-buffer-safe)
+  (indent-region (point-min) (point-max)))
+
+(global-set-key (kbd "C-c n") 'cleanup-buffer)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -52,7 +84,7 @@
  '(js-indent-level 2)
  '(package-selected-packages
    (quote
-    (aggressive-indent magit projectile haml-mode coffee-mode better-defaults auto-complete))))
+    (emmet-mode autopair aggressive-indent magit projectile haml-mode coffee-mode better-defaults auto-complete))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
