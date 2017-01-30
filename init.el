@@ -5,6 +5,13 @@
 (setq-default indent-tabs-mode nil)
 (delete-selection-mode t)
 
+;; Auto refresh buffers
+(global-auto-revert-mode 1)
+
+;; Also auto refresh dired, but be quiet about it
+(setq global-auto-revert-non-file-buffers t)
+(setq auto-revert-verbose nil)
+
 ;; less typing
 (fset 'yes-or-no-p 'y-or-n-p)
 
@@ -75,6 +82,41 @@ Including indent-buffer, which should not be called automatically on save."
   (indent-region (point-min) (point-max)))
 
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
+
+(defun move-line-down ()
+  (interactive)
+  (let ((col (current-column)))
+    (save-excursion
+      (forward-line)
+      (transpose-lines 1))
+    (forward-line)
+    (move-to-column col)))
+
+(defun move-line-up ()
+  (interactive)
+  (let ((col (current-column)))
+    (save-excursion
+      (forward-line)
+      (transpose-lines -1))
+    (move-to-column col)))
+
+(global-set-key (kbd "<C-S-down>") 'move-line-down)
+(global-set-key (kbd "<C-S-up>") 'move-line-up)
+
+;; full screen magit-status
+(defadvice magit-status (around magit-fullscreen activate)
+  (window-configuration-to-register :magit-fullscreen)
+  ad-do-it
+  (delete-other-windows))
+
+(defun magit-quit-session ()
+  "Restores the previous window configuration and kills the magit buffer"
+  (interactive)
+  (kill-buffer)
+  (jump-to-register :magit-fullscreen))
+
+(define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
+(global-set-key (kbd "C-x g") 'magit-status)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
