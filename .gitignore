@@ -7,3 +7,7 @@ ac-comphist.dat
 auto-save-list
 places
 ido.last
+eshell
+session.*
+bookmarks
+smex-items
