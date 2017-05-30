@@ -15,6 +15,17 @@
 (setq whitespace-style '(face lines-tail))
 (add-hook 'prog-mode-hook 'whitespace-mode)
 
+;; vertical ido is better.
+(require 'ido-vertical-mode)
+(require 'flx-ido)
+(ido-mode 1)
+(ido-everywhere 1)
+(flx-ido-mode 1)
+;; disable ido faces to see flx highlights.
+(setq ido-enable-flex-matching t)
+(setq ido-use-faces nil)
+(setq ido-vertical-define-keys 'C-n-and-C-p-only)
+
 ;; Enable projectile globally
 (projectile-global-mode)
 
@@ -63,7 +74,7 @@
  '(js-indent-level 2)
  '(package-selected-packages
    (quote
-    (flymake-ruby subr+ ag rtags htmlize ox-twbs smex monokai-theme cmake-ide php-mode yaml-mode emmet-mode autopair aggressive-indent magit projectile haml-mode coffee-mode better-defaults auto-complete))))
+    (flx-ido ruby-tools ido-vertical-mode flymake-ruby subr+ ag rtags htmlize ox-twbs smex monokai-theme cmake-ide php-mode yaml-mode emmet-mode autopair aggressive-indent magit projectile haml-mode coffee-mode better-defaults auto-complete))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
