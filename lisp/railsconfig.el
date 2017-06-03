@@ -1,5 +1,6 @@
 (require 'ruby-tools)
 
+(require 'rspec-mode)
 (require 'flymake-ruby)
 (add-hook 'ruby-mode-hook 'flymake-ruby-load)
 

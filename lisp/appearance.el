@@ -6,6 +6,6 @@
 (setq inhibit-startup-message t)
 
 ;; Color Theme
-(load-theme 'monokai t)
+(load-theme 'solarized-dark t)
 
 (provide 'appearance)

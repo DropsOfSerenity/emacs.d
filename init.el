@@ -26,6 +26,9 @@
 (setq ido-use-faces nil)
 (setq ido-vertical-define-keys 'C-n-and-C-p-only)
 
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
 ;; Enable projectile globally
 (projectile-global-mode)
 
@@ -37,7 +40,22 @@
 
 ;; indent agressively
 (global-aggressive-indent-mode 1)
-(add-to-list 'aggressive-indent-excluded-modes '(haml-mode python-mode))
+(add-to-list 'aggressive-indent-excluded-modes
+             '(haml-mode python-mode coffee-mode))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(coffee-tab-width 2)
+ '(css-indent-offset 2)
+ '(custom-safe-themes
+   (quote
+    ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "f78de13274781fbb6b01afd43327a4535438ebaeec91d93ebdbba1e3fba34d3c" default)))
+ '(js-indent-level 2)
+ '(package-selected-packages
+   (quote
+    (exec-path-from-shell rspec-mode solarized-theme flx-ido ruby-tools ido-vertical-mode flymake-ruby subr+ ag rtags htmlize ox-twbs smex monokai-theme cmake-ide php-mode yaml-mode emmet-mode autopair aggressive-indent magit projectile haml-mode coffee-mode better-defaults auto-complete))))
 
 (require 'cconfig)
 (require 'railsconfig)
@@ -63,21 +81,10 @@
 
 (global-set-key (kbd "C-x g") 'magit-status)
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("f78de13274781fbb6b01afd43327a4535438ebaeec91d93ebdbba1e3fba34d3c" default)))
- '(js-indent-level 2)
- '(package-selected-packages
-   (quote
-    (flx-ido ruby-tools ido-vertical-mode flymake-ruby subr+ ag rtags htmlize ox-twbs smex monokai-theme cmake-ide php-mode yaml-mode emmet-mode autopair aggressive-indent magit projectile haml-mode coffee-mode better-defaults auto-complete))))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:height 110 :family "Luculent")))))
