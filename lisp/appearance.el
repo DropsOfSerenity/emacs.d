@@ -6,6 +6,6 @@
 (setq inhibit-startup-message t)
 
 ;; Color Theme
-(load-theme 'solarized-dark t)
+(load-theme 'obsidian t)
 
 (provide 'appearance)

@@ -6,6 +6,32 @@
 ;; Initialize packages first
 (package-initialize)
 
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(require 'use-package)
+(setq use-package-always-ensure t)
+
+(use-package obsidian-theme)
+(use-package whitespace-cleanup-mode)
+(use-package ido-vertical-mode)
+(use-package projectile)
+(use-package flx-ido)
+(use-package which-key)
+(use-package exec-path-from-shell)
+(use-package autopair)
+(use-package auto-complete)
+(use-package helm)
+(use-package magit)
+(use-package rtags)
+(use-package cmake-ide)
+(use-package ruby-tools)
+(use-package rspec-mode)
+(use-package flymake-ruby)
+(use-package web-mode)
+(use-package smex)
+
 (require 'subr-x)
 (require 'defaults)
 (require 'appearance)
@@ -45,12 +71,6 @@
 (require 'helm-config)
 (helm-mode 1)
 
-;; indent agressively
-(global-aggressive-indent-mode 1)
-(add-to-list 'aggressive-indent-excluded-modes 'haml-mode)
-(add-to-list 'aggressive-indent-excluded-modes 'python-mode)
-(add-to-list 'aggressive-indent-excluded-modes 'coffee-mode)
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -64,7 +84,7 @@
  '(js-indent-level 2)
  '(package-selected-packages
    (quote
-    (web-mode which-key helm-bind-key helm exec-path-from-shell rspec-mode solarized-theme flx-ido ruby-tools ido-vertical-mode flymake-ruby subr+ ag rtags htmlize ox-twbs smex monokai-theme cmake-ide php-mode yaml-mode emmet-mode autopair aggressive-indent magit projectile haml-mode coffee-mode better-defaults auto-complete))))
+    (obsidian-theme web-mode which-key helm-bind-key helm exec-path-from-shell rspec-mode solarized-theme flx-ido ruby-tools ido-vertical-mode flymake-ruby subr+ ag rtags htmlize ox-twbs smex monokai-theme cmake-ide php-mode yaml-mode emmet-mode autopair aggressive-indent magit projectile haml-mode coffee-mode better-defaults auto-complete))))
 
 (require 'cconfig)
 (require 'railsconfig)
@@ -90,10 +110,12 @@
 
 (global-set-key (kbd "C-x g") 'magit-status)
 
+;; make emacs fullscreen
+(toggle-frame-fullscreen)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:height 100 :family "Inconsolata XL")))))
+ '(default ((t (:height 120 :family "Ubuntu Mono")))))
