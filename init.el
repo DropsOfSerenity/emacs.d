@@ -22,15 +22,32 @@
 (use-package exec-path-from-shell)
 (use-package autopair)
 (use-package auto-complete)
-(use-package helm)
+
+(use-package helm
+  :init
+  (require 'helm-config)
+  (helm-mode 1))
+
 (use-package magit)
 (use-package rtags)
 (use-package cmake-ide)
 (use-package ruby-tools)
 (use-package rspec-mode)
 (use-package flymake-ruby)
-(use-package web-mode)
+
+(use-package web-mode
+  :init
+  (add-to-list 'auto-mode-alist '("\\.hbs\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode)))
+
 (use-package smex)
+(use-package markdown-mode)
 
 (require 'subr-x)
 (require 'defaults)
@@ -67,10 +84,6 @@
 ;; Enable auto completion
 (ac-config-default)
 
-;; Enable helm
-(require 'helm-config)
-(helm-mode 1)
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -84,7 +97,7 @@
  '(js-indent-level 2)
  '(package-selected-packages
    (quote
-    (obsidian-theme web-mode which-key helm-bind-key helm exec-path-from-shell rspec-mode solarized-theme flx-ido ruby-tools ido-vertical-mode flymake-ruby subr+ ag rtags htmlize ox-twbs smex monokai-theme cmake-ide php-mode yaml-mode emmet-mode autopair aggressive-indent magit projectile haml-mode coffee-mode better-defaults auto-complete))))
+    (markdown-mode obsidian-theme web-mode which-key helm-bind-key helm exec-path-from-shell rspec-mode solarized-theme flx-ido ruby-tools ido-vertical-mode flymake-ruby subr+ ag rtags htmlize ox-twbs smex monokai-theme cmake-ide php-mode yaml-mode emmet-mode autopair aggressive-indent magit projectile haml-mode coffee-mode better-defaults auto-complete))))
 
 (require 'cconfig)
 (require 'railsconfig)
