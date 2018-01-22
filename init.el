@@ -1,7 +1,15 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
+;; SAD buffer files
 (defvar backup-dir "~/.emacs.d/backups/")
 (setq backup-directory-alist (list (cons "." backup-dir)))
+
+;; save all buffers on focus out
+(defun save-all ()
+  (interactive)
+  (save-some-buffers t))
+
+(add-hook 'focus-out-hook 'save-all)
 
 (require 'package)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
