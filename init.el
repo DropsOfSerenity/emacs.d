@@ -72,12 +72,9 @@
 
 (require 'subr-x)
 (require 'defaults)
+(require 'pretty-fonts)
 (require 'appearance)
-
 (require 'whitespace)
-(setq whitespace-line-column 80) ;; limit line length
-(setq whitespace-style '(face lines-tail))
-(add-hook 'prog-mode-hook 'whitespace-mode)
 
 ;; vertical ido is better.
 (require 'ido-vertical-mode)
@@ -115,11 +112,11 @@
  '(css-indent-offset 2)
  '(custom-safe-themes
    (quote
-    ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "f78de13274781fbb6b01afd43327a4535438ebaeec91d93ebdbba1e3fba34d3c" default)))
+    ("cc0dbb53a10215b696d391a90de635ba1699072745bf653b53774706999208e3" "cc60d17db31a53adf93ec6fad5a9cfff6e177664994a52346f81f62840fe8e23" "06ffa2bf4e891580bfe6a5ce68d0909ed9c4278e5234ede6b3ba459ef35d9a1b" "eea01f540a0f3bc7c755410ea146943688c4e29bea74a29568635670ab22f9bc" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "f78de13274781fbb6b01afd43327a4535438ebaeec91d93ebdbba1e3fba34d3c" default)))
  '(js-indent-level 2)
  '(package-selected-packages
    (quote
-    (restclient string-inflection string-inflections markdown-mode web-mode which-key helm-bind-key helm exec-path-from-shell rspec-mode solarized-theme flx-ido ruby-tools ido-vertical-mode flymake-ruby subr+ ag rtags htmlize ox-twbs smex monokai-theme cmake-ide php-mode yaml-mode emmet-mode autopair aggressive-indent magit projectile haml-mode coffee-mode better-defaults auto-complete))))
+    (minimal-theme cherry-blossom-theme firecode-theme monokai-alt-theme pretty-mode restclient string-inflection string-inflections markdown-mode web-mode which-key helm-bind-key helm exec-path-from-shell rspec-mode solarized-theme flx-ido ruby-tools ido-vertical-mode flymake-ruby subr+ ag rtags htmlize ox-twbs smex monokai-theme cmake-ide php-mode yaml-mode emmet-mode autopair aggressive-indent magit projectile haml-mode coffee-mode better-defaults auto-complete))))
 
 (require 'cconfig)
 (require 'railsconfig)
@@ -146,11 +143,10 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 
 ;; make emacs fullscreen
-(toggle-frame-fullscreen)
-
+; (toggle-frame-fullscreen)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:height 120 :family "Ubuntu Mono")))))
+ '(default ((t (:family "Fira Code")))))
