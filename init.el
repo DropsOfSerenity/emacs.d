@@ -14,6 +14,7 @@
 (require 'package)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
 ;; Initialize packages first
 (package-initialize)
 
@@ -23,6 +24,31 @@
 
 (require 'use-package)
 (setq use-package-always-ensure t)
+
+(require 'org-projectile)
+(org-projectile-per-project)
+(setq org-projectile-per-project-filepath "todo.org")
+(setq org-agenda-files (append org-agenda-files (org-projectile-todo-files)))
+(global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-c p t") 'org-projectile-project-todo-completing-read)
+
+(use-package org-super-agenda
+  :defer t
+  :config
+  (progn
+    (org-super-agenda-mode +1)
+    (setq org-super-agenda-groups
+          '((:order-multi (1 (:name "High priority"
+                                    :priority> "C")))
+            (:order-multi (1 (:name "Done today"
+                                    :and (:regexp "State \"DONE\""
+                                                  :log t))))))))
+
+(require 'js-doc)
+(add-hook 'js-mode-hook
+          #'(lambda ()
+              (define-key js-mode-map "\C-ci" 'js-doc-insert-function-doc)
+              (define-key js-mode-map "@" 'js-doc-insert-tag)))
 
 (use-package restclient
   :init
@@ -116,7 +142,7 @@
  '(js-indent-level 2)
  '(package-selected-packages
    (quote
-    (minimal-theme cherry-blossom-theme firecode-theme monokai-alt-theme pretty-mode restclient string-inflection string-inflections markdown-mode web-mode which-key helm-bind-key helm exec-path-from-shell rspec-mode solarized-theme flx-ido ruby-tools ido-vertical-mode flymake-ruby subr+ ag rtags htmlize ox-twbs smex monokai-theme cmake-ide php-mode yaml-mode emmet-mode autopair aggressive-indent magit projectile haml-mode coffee-mode better-defaults auto-complete))))
+    (org-super-agenda org-projectile minimal-theme cherry-blossom-theme firecode-theme monokai-alt-theme pretty-mode restclient string-inflection string-inflections markdown-mode web-mode which-key helm-bind-key helm exec-path-from-shell rspec-mode solarized-theme flx-ido ruby-tools ido-vertical-mode flymake-ruby subr+ ag rtags htmlize ox-twbs smex monokai-theme cmake-ide php-mode yaml-mode emmet-mode autopair aggressive-indent magit projectile haml-mode coffee-mode better-defaults auto-complete))))
 
 (require 'cconfig)
 (require 'railsconfig)
@@ -143,10 +169,10 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 
 ;; make emacs fullscreen
-; (toggle-frame-fullscreen)
+                                        ; (toggle-frame-fullscreen)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Fira Code")))))
+ '(default ((t (:height 160 :family "Fira Code")))))
